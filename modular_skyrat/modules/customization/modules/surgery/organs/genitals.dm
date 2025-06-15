@@ -187,8 +187,14 @@
 			size_affix = "2"
 		if(16 to 24)
 			size_affix = "3"
-		else
+		if(25 to 37)
 			size_affix = "4"
+		if(38 to 47)
+			size_affix = "5"
+		if(48 to 59)
+			size_affix = "6"
+		else
+			size_affix = "7"
 	var/passed_string = "penis_[genital_type]_[size_affix]"
 	if(uses_skintones)
 		passed_string += "_s"
@@ -215,8 +221,14 @@
 			size_affix = "2"
 		if(16 to 24)
 			size_affix = "3"
-		else
+		if(25 to 37)
 			size_affix = "4"
+		if(38 to 47)
+			size_affix = "5"
+		if(48 to 59)
+			size_affix = "6"
+		else
+			size_affix = "7"
 	var/passed_string = "[genital_type]_[size_affix]_[is_erect]"
 	if(uses_skintones)
 		passed_string += "_s"
@@ -260,6 +272,8 @@
 
 /obj/item/organ/genital/testicles/update_genital_icon_state()
 	var/measured_size = clamp(genital_size, 1, TESTICLES_MAX_SIZE)
+	if(genital_name == "Pair")
+		measured_size = clamp(measured_size, 0, client?.prefs.read_preference(/datum/preference/numeric/erp/testicle_size))
 	var/passed_string = "testicles_[genital_type]_[measured_size]"
 	if(uses_skintones)
 		passed_string += "_s"
@@ -283,6 +297,8 @@
 
 /obj/item/organ/genital/testicles/get_sprite_size_string()
 	var/measured_size = FLOOR(genital_size,1)
+	if(genital_name == "Pair")
+		measured_size = clamp(measured_size, 0, 6)
 	measured_size = clamp(measured_size, 0, TESTICLES_MAX_SIZE)
 	var/passed_string = "[genital_type]_[measured_size]"
 	if(uses_skintones)
@@ -449,6 +465,8 @@
 /obj/item/organ/genital/breasts/update_genital_icon_state()
 	var/max_size = 5
 	var/current_size = FLOOR(genital_size, 1)
+	if(genital_name == "Pair")
+		current_size = clamp(current_size, 0, 16)
 	if(current_size < 0)
 		current_size = 0
 	else if (current_size > max_size)
@@ -461,8 +479,10 @@
 /obj/item/organ/genital/breasts/get_sprite_size_string()
 	var/max_size = 5
 	if(genital_type == "pair")
-		max_size = 16
+		max_size = 19
 	var/current_size = FLOOR(genital_size, 1)
+	if(genital_name == "Pair")
+		current_size = clamp(current_size, 0, 16)
 	if(current_size < 0)
 		current_size = 0
 	else if (current_size > max_size)
@@ -567,3 +587,67 @@
 			picked_organ.update_sprite_suffix()
 			update_body()
 	return
+
+breast_size_override
+/obj/item/organ/genital/breasts
+
+/obj/item/organ/genital/breasts/build_from_dna(datum/dna/DNA, associated_key)
+	lactates = DNA.features["breasts_lactation"]
+	uses_skin_color = DNA.features["breasts_uses_skincolor"]
+	set_size(DNA.features["breasts_size"])
+
+	return ..()
+
+
+
+
+
+/datum/sprite_accessory/genital/breast/proc(mob/M)
+	var/pref_size = M.client?.prefs.read_preferences(/datum/preference/numeric/erp/penis_size)
+	if(pref_size > 4)
+		pref_size = 4
+	var/image/override_image = image(icon = 'modular_skyrat/master_files/icons/mob/sprite_accessory/genitals/penis_onmob.dmi' , icon_state = "robot", loc = human_user)
+	override_image.override = TRUE
+	override_image.add_overlay(mutable_appearance('modular_skyrat/master_files/icons/mob/sprite_accessory/genitals/penis_onmob.dmi', "robot_e"))
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, "standard_borg_disguise", override_image)
+
+/datum/atom_hud/alternate_appearance/proc/track_mob(mob/new_viewer)
+
+/datum/atom_hud/alternate_appearance/basic/breast/mobShouldSee(mob/M)
+	var/pref_size = M.client?.prefs.read_preferences(/datum/preference/numeric/erp/breast_size)
+	/obj/item/organ/genital/breasts/build_from_dna(datum/dna/DNA, associated_key)
+		lactates = DNA.features["breasts_lactation"]
+		uses_skin_color = DNA.features["breasts_uses_skincolor"]
+		set_size(DNA.features["breasts_size"])
+	var/
+	return !IS_CULTIST(M)
+
+/obj/item/organ/genital/breasts/
+
+/obj/item/organ/genital/build_from_dna_override(datum/dna/DNA, associated_key, mob/M)
+	. = ..()
+	var/datum/sprite_accessory/genital/accessory = SSaccessories.sprite_accessories[associated_key][DNA.mutant_bodyparts[associated_key][MUTANT_INDEX_NAME]]
+	genital_name = accessory.name
+	genital_type = accessory.icon_state
+	build_from_accessory(accessory, DNA)
+	update_sprite_suffix()
+
+/obj/item/organ/genital/breasts/build_from_dna_override(datum/dna/DNA, associated_key, mob/M)
+	lactates = DNA.features["breasts_lactation"]
+	uses_skin_color = DNA.features["breasts_uses_skincolor"]
+	var/size = DNA.features["breasts_size"])
+	/datum/atom_hud/alternate_appearance/proc/mobShouldSee(mob/M)
+		var/M.client?.prefs?.read_preference(breast_size_pref)
+
+	return ..()
+
+/datum/atom_hud/alternate_appearance/proc/mobShouldSee(mob/M)
+	var/size_pref = M.client?.prefs?.read_preference(breast_size_pref)
+	for(var/DNA = mob/living/carbon/c.dna in hud_atoms)
+		var/size = DNA.features["breasts_size"]
+		if(size_pref < size)
+			size = size_pref
+
+
+
+for(var/mob/living/carbon/c in hud_atoms)

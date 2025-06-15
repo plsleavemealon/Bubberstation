@@ -108,11 +108,73 @@
 /datum/preference/toggle/erp/breast_shrinkage
 	savefile_key = "breast_shrinkage_pref"
 
+/datum/preference/numeric/erp/breast_size
+	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
+	savefile_identifier = PREFERENCE_PLAYER
+	savefile_key = "breast_size_pref"
+	minimum = 1
+	maximum = 19
+
+/datum/preference/numeric/erp/breast_size/create_default_value()
+	return 16
+
 /datum/preference/toggle/erp/penis_enlargement
 	savefile_key = "penis_enlargement_pref"
 
 /datum/preference/toggle/erp/penis_shrinkage
 	savefile_key = "penis_shrinkage_pref"
+
+/datum/preference/numeric/erp/penis_size
+	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
+	savefile_key = "penis_size_pref"
+	savefile_identifier = PREFERENCE_PLAYER
+	minimum = 1
+	maximum = 7
+
+/datum/preference/numeric/erp/penis_size/create_default_value()
+	return 4
+
+/datum/preference/numeric/erp/testicle_size
+	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
+	savefile_key = "testicle_size_pref"
+	savefile_identifier = PREFERENCE_PLAYER
+	minimum = 1
+	maximum = TESTICLES_MAX_SIZE
+
+/datum/preference/numeric/erp/testicle_size/create_default_value()
+	return 6
+
+/datum/preference/toggle/erp/butt_enlargement
+	savefile_key = "butt_enlargement_pref"
+
+/datum/preference/toggle/erp/butt_shrinkage
+	savefile_key = "butt_shrinkage_pref"
+
+/datum/preference/numeric/erp/butt_size
+	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
+	savefile_key = "butt_size_pref"
+	savefile_identifier = PREFERENCE_PLAYER
+	minimum = 1
+	maximum = 8
+
+/datum/preference/numeric/erp/butt_size/create_default_value()
+	return 4
+
+/datum/preference/toggle/erp/belly_enlargement
+	savefile_key = "belly_enlargement_pref"
+
+/datum/preference/toggle/erp/belly_shrinkage
+	savefile_key = "belly_shrinkage_pref"
+
+/datum/preference/numeric/erp/belly_size
+	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
+	savefile_key = "belly_size_pref"
+	savefile_identifier = PREFERENCE_PLAYER
+	minimum = 1
+	maximum = 10
+
+/datum/preference/numeric/erp/belly_size/create_default_value()
+	return 3
 
 /datum/preference/toggle/erp/genitalia_removal
 	savefile_key = "genitalia_removal_pref"

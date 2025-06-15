@@ -283,13 +283,41 @@
 /datum/sprite_accessory/genital/breasts/pair
 	icon_state = "pair"
 	name = "Pair"
+	add_alt_appearance
 
 /datum/sprite_accessory/genital/breasts/quad
 	icon_state = "quad"
 	name = "Quad"
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/
 
 /datum/sprite_accessory/genital/breasts/sextuple
 	icon_state = "sextuple"
 	name = "Sextuple"
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/
+
+/datum/sprite_accessory/genital/breasts/pair/override
+
+/datum/atom_hud/alternate_appearance/proc/mobShouldSee(mob/M)
+
+
+/datum/sprite_accessory/genital/breasts/quad/override
+
+/datum/atom_hud/alternate_appearance/proc/mobShouldSee(mob/M)
+
+/datum/sprite_accessory/genital/breasts/sextuple/override
+
+/datum/atom_hud/alternate_appearance/proc/mobShouldSee(mob/M)
+
+/datum/atom_hud/alternate_appearance/size_override
+	var/appearance_key
+	var/transfer_overlays = FALSE
+
+/datum/atom_hud/alternate_appearance/size_override/New(key, options = AA_TARGET_SEE_APPEARANCE)
+
+	var/size_pref = M.client?.prefs?.read_preference(breast_size_pref)
+	for(var/DNA = mob/living/carbon/c.dna in hud_atoms)
+		var/size = DNA.features["breasts_size"]
+		if(size_pref < size)
+			size = size_pref
 
 #undef TAUR_DIMENSION_X
