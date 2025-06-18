@@ -166,6 +166,16 @@
 /datum/preference/numeric/erp/penis_size_limit/create_default_value()
 	return 4
 
+/datum/preference/numeric/erp/testicle_size_limit
+	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
+	savefile_key = "testicle_size_limit"
+	savefile_identifier = PREFERENCE_PLAYER
+	minimum = 1
+	maximum = 8
+
+/datum/preference/numeric/erp/testicle_size_limit/create_default_value()
+	return 6
+
 /datum/preference/toggle/erp/genitalia_removal
 	savefile_key = "genitalia_removal_pref"
 

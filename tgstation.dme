@@ -9280,6 +9280,7 @@
 #include "modular_zubbers\code\modules\customization\sprite_accessories\bee_tail64x32.dm"
 #include "modular_zubbers\code\modules\customization\sprite_accessories\ears.dm"
 #include "modular_zubbers\code\modules\customization\sprite_accessories\frills.dm"
+#include "modular_zubbers\code\modules\customization\sprite_accessories\genital_size_overrides.dm"
 #include "modular_zubbers\code\modules\customization\sprite_accessories\genitals.dm"
 #include "modular_zubbers\code\modules\customization\sprite_accessories\horns.dm"
 #include "modular_zubbers\code\modules\customization\sprite_accessories\ipc_screens.dm"

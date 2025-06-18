@@ -84,14 +84,14 @@
 	genetic = TRUE
 
 /datum/sprite_accessory/genital/butt/none
-    icon_state = "none"
-    name = SPRITE_ACCESSORY_NONE
-    factual = FALSE
-    color_src = null
+	icon_state = "none"
+	name = SPRITE_ACCESSORY_NONE
+	factual = FALSE
+	color_src = null
 
 /datum/sprite_accessory/genital/butt/pair
-    icon_state = "pair"
-    name = "Pair" //a pair of buns i guess
+	icon_state = "pair"
+	name = "Pair" //a pair of buns i guess
 
 /datum/sprite_accessory/genital/anus/alt
 	icon = 'modular_zubbers/icons/mob/sprite_accesory/genitals/anus.dmi'
@@ -118,9 +118,6 @@
 	has_skintone_shading = TRUE
 	relevent_layers = list(BODY_FRONT_LAYER, BODY_BEHIND_LAYER)
 	genetic = TRUE
-	//var/image/belly_override = image(icon = 'modular_zubbers/icons/mob/sprite_accesory/genitals/belly.dmi', icon_state = "none")
-	//override_image.override = TRUE
-	//add_alt_appearance(/datum/atom_hud/alternate_appearance/basic, "[REF(src)]", belly_override)
 
 /datum/sprite_accessory/genital/belly/none
 	icon_state = "none"

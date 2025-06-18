@@ -24,6 +24,9 @@
 /obj/item/organ/genital/proc/get_sprite_size_string()
 	return 0
 
+/obj/item/organ/genital/proc/get_sprite_size_string_override()
+	return 0
+
 //This translates the float size into a sprite string
 /obj/item/organ/genital/proc/update_sprite_suffix()
 	sprite_suffix = "[get_sprite_size_string()]"
@@ -31,6 +34,13 @@
 	var/datum/bodypart_overlay/mutant/genital/our_overlay = bodypart_overlay
 
 	our_overlay.sprite_suffix = sprite_suffix
+
+/obj/item/organ/genital/proc/update_sprite_override()
+	sprite_suffix_override = "[get_sprite_size_string_override()]"
+
+	var/datum/bodypart_overlay/mutant/genital/our_overlay = bodypart_overlay
+
+	our_overlay.sprite_suffix_override = sprite_suffix_override
 
 
 /obj/item/organ/genital/proc/get_description_string(datum/sprite_accessory/genital/gas)
@@ -46,6 +56,7 @@
 /obj/item/organ/genital/Initialize(mapload)
 	. = ..()
 	update_sprite_suffix()
+	update_sprite_override()
 	if(CONFIG_GET(flag/disable_lewd_items))
 		return INITIALIZE_HINT_QDEL
 
@@ -65,6 +76,7 @@
 	genital_name = accessory.name
 	genital_type = accessory.icon_state
 	build_from_accessory(accessory, DNA)
+	build_override_from_accessory(accessory, DNA)
 	update_sprite_suffix()
 
 	var/datum/bodypart_overlay/mutant/genital/our_overlay = bodypart_overlay
@@ -73,6 +85,9 @@
 
 /// for specific build_from_dna behavior that also checks the genital accessory.
 /obj/item/organ/genital/proc/build_from_accessory(datum/sprite_accessory/genital/accessory, datum/dna/DNA)
+	return
+
+obj/item/organ/genital/proc/build_override_from_accessory(datum/sprite_accessory/genital/accessory, datum/dna/DNA)
 	return
 
 /obj/item/organ/genital/proc/is_exposed()
@@ -101,6 +116,7 @@
 	color_source = ORGAN_COLOR_OVERRIDE
 	/// The suffix appended to the feature_key for the overlays.
 	var/sprite_suffix
+	var/sprite_suffix_override
 
 /datum/bodypart_overlay/mutant/genital/override_color(rgb_value)
 	return draw_color
@@ -232,12 +248,51 @@
 	var/passed_string = "[genital_type]_[size_affix]_[is_erect]"
 	if(uses_skintones)
 		passed_string += "_s"
+	penis_list.add(passed_string)
+	for(mob/M in GLOB.player_list())
+		var/size_affix_test = 1
+		switch(measured_size)
+			if(1 to 8)
+				size_affix_test = 1
+			if(9 to 15)
+				size_affix_test = 2
+			if(16 to 24)
+				size_affix_test = 3
+			if(25 to 36)
+				size_affix_test = 4
+			if(37 to 48)
+				size_affix_test = 5
+			if(49 to 60)
+				size_affix_test = 6
+			else
+				size_affix_test = 7
+			if(size_affix_test > M.client?.read_preferences(/datum/preference/numeric/erp/penis_size_limit))
+				size_affix_test = M.client?.read_preferences(/datum/preference/numeric/erp/penis_size_limit)
+				switch(size_affix_test)
+				if(1)
+					size_affix_test = "1"
+				if(2)
+					size_affix_test = "2"
+				if(3)
+					size_affix_test = "3"
+				if(4)
+					size_affix_test = "4"
+				if(5)
+					size_affix_test = "5"
+				if(6)
+					size_affix_test = "6"
+				else
+					size_affix_test = "7"
+				var/penis_override_string = "[genital_type]_[size_affix_test]_[is_erect]"
+				genital_size_overrides.penis_override_list.add([M.name][passed_string][penis_override_string])
+				add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, image = penis_override_string)
 	return passed_string
 
 /obj/item/organ/genital/penis/build_from_dna(datum/dna/DNA, associated_key)
 	girth = DNA.features["penis_girth"]
 	uses_skin_color = DNA.features["penis_uses_skincolor"]
 	set_size(DNA.features["penis_size"])
+
 
 	return ..()
 
@@ -474,6 +529,21 @@
 	var/max_size = 5
 	if(genital_type == "pair")
 		max_size = 19
+	var/current_size = FLOOR(genital_size, 1)
+	if(current_size < 0)
+		current_size = 0
+	else if (current_size > max_size)
+		current_size = max_size
+	var/passed_string = "[genital_type]_[current_size]"
+	if(uses_skintones)
+		passed_string += "_s"
+	return passed_string
+
+/obj/item/organ/genital/breasts/get_sprite_size_string_override()
+	var/max_size = 5
+	if(genital_type == "pair")
+		max_size = 19
+	max_size =
 	var/current_size = FLOOR(genital_size, 1)
 	if(current_size < 0)
 		current_size = 0

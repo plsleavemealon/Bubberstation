@@ -170,6 +170,13 @@ export const penis_size_limit: Feature<number> = {
   component: FeatureSliderInput,
 };
 
+export const testicle_size_limit: Feature<number> = {
+  name: 'Testicle size limit',
+  category: 'ERP',
+  description: 'Controls the visible size of testicles.',
+  component: FeatureSliderInput,
+};
+
 export const gender_change_pref: FeatureToggle = {
   name: 'Forced gender change',
   category: 'ERP',
