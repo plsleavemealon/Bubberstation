@@ -156,226 +156,147 @@
 /datum/bodypart_overlay/mutant/genital/belly/get_global_feature_list()
 	return SSaccessories.sprite_accessories[ORGAN_SLOT_BELLY]
 
-/obj/item/organ/genital/override_from_dna(datum/dna/DNA, associated_key)
-	. = ..()
-	var/datum/sprite_accessory/genital/accessory = SSaccessories.sprite_accessories[associated_key][DNA.mutant_bodyparts[associated_key][MUTANT_INDEX_NAME]]
-	genital_name = accessory.name
-	genital_type = accessory.icon_state
-	build_from_accessory(accessory, DNA)
-	update_sprite_suffix()
+//var/penis_overrides = list()
+//var/penis_overriden_player = list()
+//var/penis_override_images = list()
+//var/penis_overrides_key[][][]
 
-	var/datum/bodypart_overlay/mutant/genital/our_overlay = bodypart_overlay
+//var/breasts_overrides = list()
+//var/breast_overriden_player = list()
+//var/breast_override_images = list()
+//var/breast_overrides_key[][][]
 
-	our_overlay.color_source = uses_skin_color ? ORGAN_COLOR_INHERIT : ORGAN_COLOR_OVERRIDE
-	var/image/override_image = image(icon = sprite_suffix, icon_state = genital_type, loc = src)
-	override_image.add_overlay(bodypart_overlay)
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/genital_size_override, DNA, override_image)
+//var/belly_overrides = list()
+//var/belly_overriden_player = list()
+//var/belly_override_images = list()
+//var/belly_overrides_key[][][]
 
-/obj/item/organ/genital/penis/override_from_dna(datum/dna/DNA, associated_key)
-	for(var/mob in GLOB.player_list)
-		genital_size = DNA.features["penis_size"]
-		var/measured_size = FLOOR(genital_size,1)
-		if(measured_size < 1)
-			measured_size = 1
-		switch(measured_size)
-			if(1 to 8)
-				size_affix = 1
-			if(9 to 15)
-				size_affix = 2
-			if(16 to 24)
-				size_affix = 3
-			if(25 to 36)
-				size_affix = 4
-			if(37 to 48)
-				size_affix = 5
-			if(49 to 60)
-				size_affix = 6
-			else
-				size_affix = 7
-		if(size_affix > mob.client?.read_preferences(/datum/preference/numeric/erp/penis_size_limit))
-			size_affix = mob.client?.read_preferences(/datum/preference/numeric/erp/penis_size_limit
-		switch(size_affix)
-			if(1)
-				measured size = 1
-			if(2)
-				measured_size = 9
-			if(3)
-				measured_size = 16
-			if(4)
-				measured_size = 25
-			if(5)
-				measured_size = 37
-			if(6)
-				measured_size = 49
-			else
-				measured_size = 61
-		list(girth = DNA.features["penis_girth"])
-		uses_skin_color = DNA.features["penis_uses_skincolor"]
-		set_size(measured_size)
+//var/butt_overrides = list()
+//var/butt_overriden_player = list()
+//var/butt_override_images = list()
+//var/butt_overrides_key[][][]
 
-		return ..()
-
-for(var/mob in GLOB.player_list)
-	var/penis_overrides = list(mob.client?.read_preferences(/datum/preference/numeric/erp/penis_size_limit))
-	var/breasts_overrides = list(mob.client?.read_preferences(/datum/preference/numeric/erp/breast_size_limit))
-	var/belly_overrides = list(mob.client?.read_preferences(/datum/preference/numeric/erp/belly_size_limit))
-	var/butt_overrides = list(mob.client?.read_preferences(/datum/preference/numeric/erp/butt_size_limit))
-
-/datum/atom_hud/alternate_appearance/penis_size_limit(penis_overrides)
-
-/datum/atom_hud/alternate_appearance/breast_size_limit(breasts_overrides)
-
-/datum/atom_hud/alternate_appearance/belly_size_limit(belly_overrides)
-
-/datum/atom_hud/alternate_appearance/butt_size_limi(butt_overrides)
-
-/datum/something
-
-
-
-
-
-var/penis_overrides = list()
-var/penis_overriden_player = list()
-var/penis_override_images = list()
-var/penis_overrides_key[][][]
-
-var/breasts_overrides = list()
-var/breast_overriden_player = list()
-var/breast_override_images = list()
-var/breast_overrides_key[][][]
-
-var/belly_overrides = list()
-var/belly_overriden_player = list()
-var/belly_override_images = list()
-var/belly_overrides_key[][][]
-
-var/butt_overrides = list()
-var/butt_overriden_player = list()
-var/butt_override_images = list()
-var/butt_overrides_key[][][]
-
-for(var/mob in GLOB.player_list)
-	var/penis_size_limit = mob.client?.read_preferences(/datum/preference/numeric/erp/penis_size_limit)
-	var/butt_size_limit = mob.client?.read_preferences(/datum/preference/numeric/erp/butt_size_limit)
-	var/breast_size_limit = mob.client?.read_preferences(/datum/preference/numeric/erp/breast_size_limit)
-	var/belly_size_limit = mob.client?.read_preferences(/datum/preference/numeric/erp/belly_size_limit)
-	for(var/mobDNA in GLOB.player_list)
-		var/butt_size = mob.dna.features["butt_size"]
-		var/belly_size = mob.dna.features["belly_size"]
-		var/breast_size = mob.dna.features["breast_size"]
-		var/penis_size = mob.dna.features["penis_size"]
-		penis_size = FLOOR(penis_size,1)
-		if(penis_size < 1)
-			penis_size = 1
-		switch(penis_size)
-			if(1 to 8)
-				penis_size = 1
-			if(9 to 15)
-				penis_size = 2
-			if(16 to 24)
-				penis_size = 3
-			if(25 to 36)
-				penis_size = 4
-			if(37 to 48)
-				penis_size = 5
-			if(49 to 60)
-				penis_size = 6
-			else
-				penis_size = 7
-		if(penis_size_affix > penis_size_limit)
-			switch(penis_size_limit)
-				if(1)
-					penis_size = 8
-				if(2)
-					penis_size = 15
-				if(3)
-					penis_size = 24
-				if(4)
-					penis_size = 36
-				if(5)
-					penis_size = 48
-				if(6)
-					penis_size = 60
-			penis_overrides.add(mob.name)
-			penis_overriden_player.add(mobDNA.name)
-			penis_override_images
-			penis_overrides_key.add([penis_overrides(mob.name)], [penis_overriden_player(mobDNA.name)], [penis_size])
-		if(butt_size > butt_size_limit))
-			butt_overrides.add(mob.name)
-			butt_overriden_player.add(mobDNA.name)
-			butt_override_images.add(generate_fake_butt_sprite_string())
-			butt_overrides_key.add([butt_overrides(mob.name)], [butt_overriden_player(mobDNA.name)], [generate_fake_butt_sprite_string])
-		if(breast_size > breast_size_limit))
-			breast_overrides.add(mob.name)
-			breast_overriden_player.add(mobDNA.name)
-			breast_override_images
-			breast_overrides_key.add([breast_overrides(mob.name)], [breast_overriden_player(mobDNA.name)], [breast_size_limit])
-		if(belly_size > belly_size_limit))
-			belly_overrides.add(mob.name)
-			belly_overriden_player.add(mobDNA.name)
-			belly_override_images.add(generate_fake_belly_sprite(mob, mobDNA, belly_size_limit))
-			belly_overrides_key.add([belly_overrides(mob.name)], [belly_overriden_player(mobDNA.name)], [belly_size_limit])
+//for(var/mob in GLOB.player_list)
+//	var/penis_size_limit = mob.client?.read_preferences(/datum/preference/numeric/erp/penis_size_limit)
+//	var/butt_size_limit = mob.client?.read_preferences(/datum/preference/numeric/erp/butt_size_limit)
+//	var/breast_size_limit = mob.client?.read_preferences(/datum/preference/numeric/erp/breast_size_limit)
+//	var/belly_size_limit = mob.client?.read_preferences(/datum/preference/numeric/erp/belly_size_limit)
+//	for(var/mobDNA in GLOB.player_list)
+//		var/butt_size = mob.dna.features["butt_size"]
+//		var/belly_size = mob.dna.features["belly_size"]
+//		var/breast_size = mob.dna.features["breast_size"]
+//		var/penis_size = mob.dna.features["penis_size"]
+//		penis_size = FLOOR(penis_size,1)
+//		if(penis_size < 1)
+//			penis_size = 1
+//		switch(penis_size)
+//			if(1 to 8)
+//				penis_size = 1
+//			if(9 to 15)
+//				penis_size = 2
+//			if(16 to 24)
+//				penis_size = 3
+//			if(25 to 36)
+//				penis_size = 4
+//			if(37 to 48)
+//				penis_size = 5
+//			if(49 to 60)
+//				penis_size = 6
+///			else
+//				penis_size = 7
+//		if(penis_size_affix > penis_size_limit)
+//			switch(penis_size_limit)
+//				if(1)
+//					penis_size = 8
+///				if(2)
+//					penis_size = 15
+//				if(3)
+//					penis_size = 24
+//				if(4)
+//					penis_size = 36
+//				if(5)
+//					penis_size = 48
+//				if(6)
+//					penis_size = 60
+//			penis_overrides.add(mob.name)
+//			penis_overriden_player.add(mobDNA.name)
+//			penis_override_images
+//			penis_overrides_key.add([penis_overrides(mob.name)], [penis_overriden_player(mobDNA.name)], [penis_size])
+//		if(butt_size > butt_size_limit))
+//			butt_overrides.add(mob.name)
+//			butt_overriden_player.add(mobDNA.name)
+//			butt_override_images.add(generate_fake_butt_sprite_string())
+//			butt_overrides_key.add([butt_overrides(mob.name)], [butt_overriden_player(mobDNA.name)], [generate_fake_butt_sprite_string])
+//		if(breast_size > breast_size_limit))
+//			breast_overrides.add(mob.name)
+//			breast_overriden_player.add(mobDNA.name)
+/			breast_override_images
+//			breast_overrides_key.add([breast_overrides(mob.name)], [breast_overriden_player(mobDNA.name)], [breast_size_limit])
+//		if(belly_size > belly_size_limit))
+//			belly_overrides.add(mob.name)
+//			belly_overriden_player.add(mobDNA.name)
+//			belly_override_images.add(generate_fake_belly_sprite(mob, mobDNA, belly_size_limit))
+//			belly_overrides_key.add([belly_overrides(mob.name)], [belly_overriden_player(mobDNA.name)], [belly_size_limit])
 
 
 
-/datum/atom_hud/alternate_appearance/butt_override/mobShouldSee(mob/M)
-	if(M in butt_overrides)
-		return TRUE
-	return FALSE
+///datum/atom_hud/alternate_appearance/butt_override/mobShouldSee(mob/M)
+//	if(M in butt_overrides)
+//		return TRUE
+//	return FALSE
 
-/datum/atom_hud/alternate_appearance/breast_override/mobShouldSee(mob/M)
-	if(M in breast_overrides)
-		return TRUE
-	return FALSE
+///datum/atom_hud/alternate_appearance/breast_override/mobShouldSee(mob/M)
+//	if(M in breast_overrides)
+//		return TRUE
+//	return FALSE
 
-/datum/atom_hud/alternate_appearance/belly_override/mobShouldSee(mob/M)
-	if(M in belly_overrides)
-		return TRUE
-	return FALSE
+///datum/atom_hud/alternate_appearance/belly_override/mobShouldSee(mob/M)
+//	if(M in belly_overrides)
+//		return TRUE
+//	return FALSE
 
-var/penis_override_images = list()
-var/butt_override_images = list()
-var/breast_override_images = list()
-var/belly_override_images = list()
+//var/penis_override_images = list()
+//var/butt_override_images = list()
+//var/breast_override_images = list()
+//var/belly_override_images = list()
 
 
 
-generate_fake_butt(mob/A, mob/B, size)
-	. = "[genital_type]_[floor(genital_size)]"
-	if(uses_skintones)
-		. += "_s"
+//generate_fake_butt(mob/A, mob/B, size)
+//	. = "[genital_type]_[floor(genital_size)]"
+//	if(uses_skintones)
+//		. += "_s"
 
 
 
 
 
-generate_fake_breast(mob/A, mob/B, size)
-	genital_size = B.dna.feature["breast_size"]
-	var/max_size = 5
-	if(genital_type == "pair")
-		max_size = 19
-	var/current_size = FLOOR(genital_size, 1)
-	if(current_size < 0)
-		current_size = 0
-	if(current_size > size)
+//generate_fake_breast(mob/A, mob/B, size)
+	//genital_size = B.dna.feature["breast_size"]
+	//var/max_size = 5
+	//if(genital_type == "pair")
+	//	max_size = 19
+//var/current_size = FLOOR(genital_size, 1)
+	//if(current_size < 0)
+	//	current_size = 0
+//	if(current_size > size)
 		current_size = size
-	else if (current_size > max_size)
-		current_size = max_size
-	var/passed_string = "[genital_type]_[current_size]"
-	if(uses_skintones)
-		passed_string += "_s"
-	return passed_string
+//	else if (current_size > max_size)
+//		current_size = max_size
+//	var/passed_string = "[genital_type]_[current_size]"
+//	if(uses_skintones)
+//		passed_string += "_s"
+//	return passed_string
 
 
-generate_fake_belly
-		. = "[genital_type]_[floor(genital_size)]"
-	if(uses_skintones)
+//generate_fake_belly
+//		. = "[genital_type]_[floor(genital_size)]"
+//	if(uses_skintones)
 		. += "_s"
 
-/obj/item/organ/genital/proc/update_sprite_override()
-	sprite_suffix_override = "[get_sprite_size_string()]"
+///obj/item/organ/genital/proc/update_sprite_override()
+//	sprite_suffix_override = "[get_sprite_size_string()]"
 
-	var/datum/bodypart_overlay/mutant/genital/our_overlay = bodypart_overlay
+//	var/datum/bodypart_overlay/mutant/genital/our_overlay = bodypart_overlay
 
-	our_overlay.sprite_suffix = sprite_suffix
+//	our_overlay.sprite_suffix = sprite_suffix
