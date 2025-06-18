@@ -76,7 +76,7 @@
 #define PENIS_DEFAULT_LENGTH 6 //still a lil long but not insane
 
 #define TESTICLES_MIN_SIZE 0
-#define TESTICLES_MAX_SIZE 6
+#define TESTICLES_MAX_SIZE 8
 
 #define SHEATH_NONE	"None"
 #define SHEATH_NORMAL "Sheath"
@@ -84,9 +84,9 @@
 #define SHEATH_MODES list(SHEATH_NONE, SHEATH_NORMAL, SHEATH_SLIT)
 
 #define BUTT_MIN_SIZE 1
-#define BUTT_MAX_SIZE 4 //size of 8 available
+#define BUTT_MAX_SIZE 8
 #define BELLY_MIN_SIZE 1
-#define BELLY_MAX_SIZE 4 //size of 10 available
+#define BELLY_MAX_SIZE 10
 
 #define MANDATORY_FEATURE_LIST list(\
 	"mcolor" = "#FFFFBB",\

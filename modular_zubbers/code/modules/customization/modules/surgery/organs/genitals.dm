@@ -155,3 +155,106 @@
 
 /datum/bodypart_overlay/mutant/genital/belly/get_global_feature_list()
 	return SSaccessories.sprite_accessories[ORGAN_SLOT_BELLY]
+
+//datum/bodypart_overlay/mutant/genital/belly/get_global_feature_list()
+	//for(var/client/client in GLOB.clients)
+		//var/belly_size_limit = client?.read_preferences(/datum/preference/numeric/erp/belly_size_limit)
+	//	var/breast_size_limit = client?.read_preferences(/datum/preference/numeric/erp/breast_size_limit)
+	//	var/butt_size_limit = client?.read_preferences(/datum/preference/numeric/erp/butt_size_limit)
+	//	var/penis_size_limit = client?.read_preferences(/datum/preference/numeric/erp/penis_size_limit)
+
+//belly override concept
+
+//var/size_override = DNA.features["belly_size"]
+//if(size_override > belly_size_limit)
+//	size_override = belly_size_limit
+
+//datum/atom_hud/alternate_appearance/belly_size_override
+	//set_size(DNA.features["belly_size"])
+//	hud_icons = list(appearance_key)
+//	belly_appearance_override = get_sprite_size_string(size_override)
+
+//datum/atom_hud/alternate_appearance/New(datum/dna/DNA)
+
+//	appearance_key = key
+//	hud_icons = list(appearance_key)
+//	..()
+//
+//	GLOB.active_alternate_appearances += src
+//
+//	for(var/mob in GLOB.player_list)
+//		if(DNA.features["breasts_size"] > client?.read_preferences(/datum/preference/numeric/erp/breast_size_limit))
+//			apply_to_new_mob(mob)
+
+/obj/item/organ/genital/override_from_dna(datum/dna/DNA, associated_key)
+	. = ..()
+	var/datum/sprite_accessory/genital/accessory = SSaccessories.sprite_accessories[associated_key][DNA.mutant_bodyparts[associated_key][MUTANT_INDEX_NAME]]
+	genital_name = accessory.name
+	genital_type = accessory.icon_state
+	build_from_accessory(accessory, DNA)
+	update_sprite_suffix()
+
+	var/datum/bodypart_overlay/mutant/genital/our_overlay = bodypart_overlay
+
+	our_overlay.color_source = uses_skin_color ? ORGAN_COLOR_INHERIT : ORGAN_COLOR_OVERRIDE
+	var/image/override_image = image(icon = sprite_suffix, icon_state = genital_type, loc = src)
+	override_image.add_overlay(bodypart_overlay)
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/genital_size_override, DNA, override_image)
+
+/obj/item/organ/genital/penis/override_from_dna(datum/dna/DNA, associated_key)
+	for(var/mob in GLOB.player_list)
+		genital_size = DNA.features["penis_size"]
+		var/measured_size = FLOOR(genital_size,1)
+		if(measured_size < 1)
+			measured_size = 1
+		switch(measured_size)
+			if(1 to 8)
+				size_affix = 1
+			if(9 to 15)
+				size_affix = 2
+			if(16 to 24)
+				size_affix = 3
+			if(25 to 36)
+				size_affix = 4
+			if(37 to 48)
+				size_affix = 5
+			if(49 to 60)
+				size_affix = 6
+			else
+				size_affix = 7
+		if(size_affix > mob.client?.read_preferences(/datum/preference/numeric/erp/penis_size_limit))
+			size_affix = mob.client?.read_preferences(/datum/preference/numeric/erp/penis_size_limit
+		switch(size_affix)
+			if(1)
+				measured size = 1
+			if(2)
+				measured_size = 9
+			if(3)
+				measured_size = 16
+			if(4)
+				measured_size = 25
+			if(5)
+				measured_size = 37
+			if(6)
+				measured_size = 49
+			else
+				measured_size = 61
+		list(girth = DNA.features["penis_girth"])
+		uses_skin_color = DNA.features["penis_uses_skincolor"]
+		set_size(measured_size)
+
+		return ..()
+
+for(var/mob in GLOB.player_list)
+	var/penis_overrides = list(mob.client?.read_preferences(/datum/preference/numeric/erp/penis_size_limit))
+	var/breasts_overrides = list(mob.client?.read_preferences(/datum/preference/numeric/erp/breast_size_limit))
+	var/belly_overrides = list(mob.client?.read_preferences(/datum/preference/numeric/erp/belly_size_limit))
+	var/butt_overrides = list(mob.client?.read_preferences(/datum/preference/numeric/erp/butt_size_limit))
+
+/datum/atom_hud/alternate_appearance/penis_size_limit(penis_overrides)
+
+/datum/atom_hud/alternate_appearance/breast_size_limit(breasts_overrides)
+
+/datum/atom_hud/alternate_appearance/belly_size_limit(belly_overrides)
+
+/datum/atom_hud/alternate_appearance/butt_size_limi(butt_overrides)

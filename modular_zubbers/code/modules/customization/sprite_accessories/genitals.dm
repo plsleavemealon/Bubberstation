@@ -71,6 +71,7 @@
 	name = "Sheathed Pair"
 	icon_state = "sheath"
 	has_skintone_shading = TRUE
+
 /datum/sprite_accessory/genital/butt
 	icon = 'modular_zubbers/icons/mob/sprite_accesory/genitals/butt.dmi'
 	organ_type = /obj/item/organ/genital/butt
@@ -117,6 +118,9 @@
 	has_skintone_shading = TRUE
 	relevent_layers = list(BODY_FRONT_LAYER, BODY_BEHIND_LAYER)
 	genetic = TRUE
+	//var/image/belly_override = image(icon = 'modular_zubbers/icons/mob/sprite_accesory/genitals/belly.dmi', icon_state = "none")
+	//override_image.override = TRUE
+	//add_alt_appearance(/datum/atom_hud/alternate_appearance/basic, "[REF(src)]", belly_override)
 
 /datum/sprite_accessory/genital/belly/none
 	icon_state = "none"

@@ -187,14 +187,14 @@
 			size_affix = "2"
 		if(16 to 24)
 			size_affix = "3"
-		else  //if(25 to 36)
+		if(25 to 36)
 			size_affix = "4"
-		//if(37 to 48)
-		//	size_affix = "5"
-		//if(49 to 60)
-		//	size_affix = "6"
-		//else
-		//	size_affix = "7"
+		if(37 to 48)
+			size_affix = "5"
+		if(49 to 60)
+			size_affix = "6"
+		else
+			size_affix = "7"
 	var/passed_string = "penis_[genital_type]_[size_affix]"
 	if(uses_skintones)
 		passed_string += "_s"
@@ -221,14 +221,14 @@
 			size_affix = "2"
 		if(16 to 24)
 			size_affix = "3"
-		else //if(25 to 36)
+		if(25 to 36)
 			size_affix = "4"
-		//if(37 to 48)
-		//	size_affix = "5"
-		//if(49 to 60)
-		//	size_affix = "6"
-		//else
-		//	size_affix = "7"
+		if(37 to 48)
+			size_affix = "5"
+		if(49 to 60)
+			size_affix = "6"
+		else
+			size_affix = "7"
 	var/passed_string = "[genital_type]_[size_affix]_[is_erect]"
 	if(uses_skintones)
 		passed_string += "_s"
@@ -473,7 +473,7 @@
 /obj/item/organ/genital/breasts/get_sprite_size_string()
 	var/max_size = 5
 	if(genital_type == "pair")
-		max_size = 16
+		max_size = 19
 	var/current_size = FLOOR(genital_size, 1)
 	if(current_size < 0)
 		current_size = 0

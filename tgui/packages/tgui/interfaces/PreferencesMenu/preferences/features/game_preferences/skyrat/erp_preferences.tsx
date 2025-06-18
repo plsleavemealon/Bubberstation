@@ -1,5 +1,5 @@
 // THIS IS A SKYRAT UI FILE
-import { CheckboxInput, FeatureChoiced, FeatureToggle } from '../../base';
+import { CheckboxInput, FeatureChoiced, FeatureSliderInput, FeatureToggle } from '../../base';
 import { FeatureDropdownInput } from '../../dropdowns';
 
 export const master_erp_pref: FeatureToggle = {
@@ -86,6 +86,13 @@ export const belly_shrinkage_pref: FeatureToggle = {
   component: CheckboxInput,
 };
 
+export const belly_size_limit: Feature<number> = {
+  name: 'Belly size limit',
+  category: 'ERP',
+  description: 'Controls the visible size of bellies.',
+  component: FeatureSliderInput,
+};
+
 export const breast_enlargement_pref: FeatureToggle = {
   name: 'Breast enlargement',
   category: 'ERP',
@@ -110,6 +117,13 @@ export const breast_removal_pref: FeatureToggle = {
   component: CheckboxInput,
 };
 
+export const breast_size_limit: Feature<number> = {
+  name: 'Breast size limit',
+  category: 'ERP',
+  description: 'Controls the visible size of breasts.',
+  component: FeatureSliderInput,
+};
+
 export const butt_enlargement_pref: FeatureToggle = {
   name: 'Butt enlargement',
   category: 'ERP',
@@ -126,6 +140,13 @@ export const butt_shrinkage_pref: FeatureToggle = {
   component: CheckboxInput,
 };
 
+export const butt_size_limit: Feature<number> = {
+  name: 'Butt size limit',
+  category: 'ERP',
+  description: 'Controls the visible size of butts.',
+  component: FeatureSliderInput,
+};
+
 export const penis_enlargement_pref: FeatureToggle = {
   name: 'Penis enlargement',
   category: 'ERP',
@@ -140,6 +161,13 @@ export const penis_shrinkage_pref: FeatureToggle = {
   description:
     'Determines if you wish to receive the effects of penis shrinkage chemicals.',
   component: CheckboxInput,
+};
+
+export const penis_size_limit: Feature<number> = {
+  name: 'Penis size limit',
+  category: 'ERP',
+  description: 'Controls the visible size of pinuses.',
+  component: FeatureSliderInput,
 };
 
 export const gender_change_pref: FeatureToggle = {
