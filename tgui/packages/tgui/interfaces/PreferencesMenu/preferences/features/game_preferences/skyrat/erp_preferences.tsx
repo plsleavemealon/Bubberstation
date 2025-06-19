@@ -89,7 +89,8 @@ export const belly_shrinkage_pref: FeatureToggle = {
 export const belly_size_limit: Feature<number> = {
   name: 'Belly size limit',
   category: 'ERP',
-  description: 'Controls the visible size of bellies.',
+  description:
+    'Controls the visible size of bellies.',
   component: FeatureSliderInput,
 };
 
@@ -120,7 +121,8 @@ export const breast_removal_pref: FeatureToggle = {
 export const breast_size_limit: Feature<number> = {
   name: 'Breast size limit',
   category: 'ERP',
-  description: 'Controls the visible size of breasts.',
+  description:
+    'Controls the visible size of breasts.',
   component: FeatureSliderInput,
 };
 
@@ -143,7 +145,8 @@ export const butt_shrinkage_pref: FeatureToggle = {
 export const butt_size_limit: Feature<number> = {
   name: 'Butt size limit',
   category: 'ERP',
-  description: 'Controls the visible size of butts.',
+  description:
+    'Controls the visible size of butts.',
   component: FeatureSliderInput,
 };
 
@@ -166,14 +169,16 @@ export const penis_shrinkage_pref: FeatureToggle = {
 export const penis_size_limit: Feature<number> = {
   name: 'Penis size limit',
   category: 'ERP',
-  description: 'Controls the visible size of pinuses.',
+  description:
+    'Controls the visible size of pinuses.',
   component: FeatureSliderInput,
 };
 
 export const testicle_size_limit: Feature<number> = {
   name: 'Testicle size limit',
   category: 'ERP',
-  description: 'Controls the visible size of testicles.',
+  description:
+    'Controls the visible size of testicles.',
   component: FeatureSliderInput,
 };
 

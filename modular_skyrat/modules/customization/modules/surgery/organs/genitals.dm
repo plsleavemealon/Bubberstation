@@ -234,8 +234,8 @@
 	var/passed_string = "[genital_type]_[size_affix]_[is_erect]"
 	if(uses_skintones)
 		passed_string += "_s"
-	penis_list.add(passed_string)
 	for(mob/M in GLOB.player_list())
+		client_test = M.client?.prefs?.read_preference(/datum/preference/numeric/erp/penis_size_limit)
 		var/size_affix_test = 1
 		switch(measured_size)
 			if(1 to 8)
@@ -252,8 +252,8 @@
 				size_affix_test = 6
 			else
 				size_affix_test = 7
-			if(size_affix_test > M.client?.read_preferences(/datum/preference/numeric/erp/penis_size_limit))
-				size_affix_test = M.client?.read_preferences(/datum/preference/numeric/erp/penis_size_limit)
+			if(size_affix_test > client_test)
+				size_affix_test = client_test
 				switch(size_affix_test)
 				if(1)
 					size_affix_test = "1"
@@ -269,10 +269,13 @@
 					size_affix_test = "6"
 				else
 					size_affix_test = "7"
-				var/penis_override_string = "[genital_type]_[size_affix_test]_[is_erect]"
+				var/penis_override_string = 0
+				penis_override_string = "[genital_type]_[size_affix_test]_[is_erect]"
+				var/datum/bodypart_overlay/mutant/genital/our_overlay = bodypart_overlay
+				our_overlay.sprite_suffix = penis_override_string
 				//genital_size_overrides.penis_override_list.add([M.name][passed_string][penis_override_string])
-				image/penis_image_override = passed_string
-				add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, passed_string, penis_image_override, M)
+				/var/image/penis_image_override = image(icon = 'modular_zubbers/icons/mob/sprite_accesory/genitals/penis_onmob.dmi', icon_state = penis_override_string)
+				add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, "[passed_string]", penis_image_override, M)
 	return passed_string
 
 /obj/item/organ/genital/penis/build_from_dna(datum/dna/DNA, associated_key)
